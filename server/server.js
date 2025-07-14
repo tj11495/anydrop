@@ -54,12 +54,9 @@ export default class PairDropServer {
             });
         });
 
-        app.use((req, res) => {
-            res.redirect(301, '/');
-        });
-
-        app.get('/', (req, res) => {
-            res.sendFile('index.html');
+        // Serve index.html for all unhandled routes (SPA fallback)
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(publicPathAbs, 'index.html'));
             console.log(`Serving client files from:\n${publicPathAbs}`)
         });
 
